@@ -6,407 +6,594 @@
 <meta name="description" content="Case study: a blended teacher-education course on competency-based unit planning, with an AI strand and survey results. By Lea Thommen.">
 <meta name="color-scheme" content="light dark">
 <title>Planning for Competence</title>
-<style>
-  :root { color-scheme: light; }
-  html { padding-block: env(safe-area-inset-top, 0px) env(safe-area-inset-bottom, 0px); }
-  body { margin: 0; }
-  img { max-width: 100%; }
-  [hidden] { display: none !important; }
-</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=account_balance,account_tree,architecture,arrow_forward,assignment_turned_in,build,calendar_month,chat,check_circle,checklist,co_present,date_range,devices,edit_note,event,fact_check,format_quote,grading,groups,handshake,insights,link,menu_book,monitoring,open_in_new,person,psychology,quiz,schedule,school,smart_toy,thumb_up,travel_explore,trending_up,tune,verified&display=block">
 <style>
-  /* Layout: one reading column; on wide screens each section's heading sits in a left rail.
-     Accent is Koenigsblau, the royal-blue ink Swiss pupils write with; the one flourish is a highlighter mark. */
+  /* Material 3 tonal system from one seed: Koenigsblau, the royal-blue ink Swiss pupils write with.
+     Tertiary is a highlighter yellow. Layout: sticky top app bar, hero with key results, then
+     section cards on tonal surfaces. */
   :root {
-    --paper: #F4F6F5;
-    --card: #FFFFFF;
-    --ink: #16262B;
-    --ink-2: #44565B;
-    --muted: #5E6F73;
-    --rule: #D6DEDC;
-    --grid: #E3E9E7;
-    --accent: #2A4AA3;
-    --accent-ink: #FFFFFF;
-    --accent-soft: #E6EBF8;
-    --quiet: #EEF1F0;
-    --mark: #F3D85A;
+    color-scheme: light;
+    --primary: #2F4FA2;
+    --on-primary: #FFFFFF;
+    --primary-container: #DBE1FF;
+    --on-primary-container: #20408F;
+    --secondary-container: #DCE2F9;
+    --on-secondary-container: #151B2C;
+    --tertiary-container: #FFDF9A;
+    --on-tertiary-container: #251A00;
+    --surface: #FAF8FF;
+    --surface-lowest: #FFFFFF;
+    --surface-low: #F4F3FA;
+    --surface-container: #EEEDF4;
+    --surface-high: #E8E7EF;
+    --on-surface: #1A1B21;
+    --on-surface-variant: #45464F;
+    --outline: #757680;
+    --outline-variant: #C5C6D0;
+    --chart-surface: #F4F3FA;
     --series-pre: #8FA4E3;
-    --series-post: #2A4AA3;
-    --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-    --font-body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
-    --font-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --step--1: 0.8125rem;
-    --step-0: 0.9375rem;
-    --step-1: 1.125rem;
-    --step-2: 1.375rem;
-    --step-3: 1.75rem;
-    --step-4: clamp(2.1rem, 1.35rem + 3.2vw, 3.4rem);
+    --series-post: #2F4FA2;
+    --shadow: 0 1px 2px rgba(16, 24, 64, 0.08), 0 2px 6px rgba(16, 24, 64, 0.06);
+    --font: "Roboto Flex", Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 28px;
+    --appbar-h: 64px;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       color-scheme: dark;
-      --paper: #11181B;
-      --card: #172126;
-      --ink: #E7EEEC;
-      --ink-2: #B5C3C5;
-      --muted: #93A3A7;
-      --rule: #2A383D;
-      --grid: #26343A;
-      --accent: #A3B7F7;
-      --accent-ink: #11181B;
-      --accent-soft: #1F2B4C;
-      --quiet: #1E2A2F;
-      --mark: #6B5C1E;
+      --primary: #B4C5FF;
+      --on-primary: #10296B;
+      --primary-container: #2A4587;
+      --on-primary-container: #DBE1FF;
+      --secondary-container: #3F4759;
+      --on-secondary-container: #DCE2F9;
+      --tertiary-container: #5A4300;
+      --on-tertiary-container: #FFDF9A;
+      --surface: #121318;
+      --surface-lowest: #0D0E13;
+      --surface-low: #1A1B21;
+      --surface-container: #1E1F25;
+      --surface-high: #292A2F;
+      --on-surface: #E3E2E9;
+      --on-surface-variant: #C5C6D0;
+      --outline: #8F909A;
+      --outline-variant: #45464F;
+      --chart-surface: #1E1F25;
       --series-pre: #4F69C2;
-      --series-post: #A9BDF8;
+      --series-post: #B4C5FF;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
     }
   }
   :root[data-theme="dark"] {
     color-scheme: dark;
-    --paper: #11181B;
-    --card: #172126;
-    --ink: #E7EEEC;
-    --ink-2: #B5C3C5;
-    --muted: #93A3A7;
-    --rule: #2A383D;
-    --grid: #26343A;
-    --accent: #A3B7F7;
-    --accent-ink: #11181B;
-    --accent-soft: #1F2B4C;
-    --quiet: #1E2A2F;
-    --mark: #6B5C1E;
+    --primary: #B4C5FF;
+    --on-primary: #10296B;
+    --primary-container: #2A4587;
+    --on-primary-container: #DBE1FF;
+    --secondary-container: #3F4759;
+    --on-secondary-container: #DCE2F9;
+    --tertiary-container: #5A4300;
+    --on-tertiary-container: #FFDF9A;
+    --surface: #121318;
+    --surface-lowest: #0D0E13;
+    --surface-low: #1A1B21;
+    --surface-container: #1E1F25;
+    --surface-high: #292A2F;
+    --on-surface: #E3E2E9;
+    --on-surface-variant: #C5C6D0;
+    --outline: #8F909A;
+    --outline-variant: #45464F;
+    --chart-surface: #1E1F25;
     --series-pre: #4F69C2;
-    --series-post: #A9BDF8;
+    --series-post: #B4C5FF;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
   }
 
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--font-body);
-    font-size: var(--step-1);
+    margin: 0;
+    background: var(--surface);
+    color: var(--on-surface);
+    font-family: var(--font);
+    font-size: 1rem;
     line-height: 1.6;
-    padding-inline: 20px;
+    font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 1120px; margin-inline: auto; padding-block: 56px 72px; }
-  a { color: var(--accent); }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+  a { color: var(--primary); }
+  :focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+  .wrap { max-width: 1200px; margin-inline: auto; padding-inline: 20px; }
+  @media (min-width: 720px) { .wrap { padding-inline: 32px; } }
 
-  /* Header */
-  .eyebrow {
-    font-family: var(--font-ui);
-    font-size: var(--step--1);
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 0;
+  /* Icons */
+  .ms {
+    font-family: "Material Symbols Rounded";
+    font-weight: normal; font-style: normal; font-size: 24px; line-height: 1;
+    letter-spacing: normal; text-transform: none; white-space: nowrap; direction: ltr;
+    display: inline-block; width: 1em; height: 1em; overflow: hidden; flex: none;
+    font-feature-settings: "liga"; -webkit-font-feature-settings: "liga";
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
   }
+  .ms.fill { font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24; }
+  .icon-badge {
+    width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center;
+    background: var(--primary-container); color: var(--on-primary-container); flex: none;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 20px;
+    border-radius: 999px; font: 500 0.875rem/1 var(--font); letter-spacing: 0.01em;
+    text-decoration: none; white-space: nowrap; transition: box-shadow 120ms ease, background-color 120ms ease;
+  }
+  .btn .ms { font-size: 18px; }
+  .btn.filled { background: var(--primary); color: var(--on-primary); }
+  .btn.filled:hover { box-shadow: var(--shadow), inset 0 0 0 100vmax color-mix(in srgb, var(--on-primary) 8%, transparent); }
+  .btn.tonal { background: var(--secondary-container); color: var(--on-secondary-container); }
+  .btn.tonal:hover { box-shadow: inset 0 0 0 100vmax color-mix(in srgb, var(--on-secondary-container) 8%, transparent); }
+  .btn.outlined { color: var(--primary); box-shadow: inset 0 0 0 1px var(--outline); }
+  .btn.outlined:hover { background: color-mix(in srgb, var(--primary) 8%, transparent); }
+
+  /* Top app bar */
+  .appbar {
+    position: sticky; top: 0; z-index: 10;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--outline-variant);
+  }
+  .appbar-in { display: flex; align-items: center; gap: 16px; min-height: var(--appbar-h); flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--on-surface); text-decoration: none; margin-right: auto; }
+  .avatar {
+    width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--primary); color: var(--on-primary); font-weight: 700; font-size: 0.9375rem; letter-spacing: 0.02em;
+  }
+  .brand b { display: block; font-size: 1rem; font-weight: 600; line-height: 1.25; }
+  .brand small { display: block; font-size: 0.75rem; color: var(--on-surface-variant); line-height: 1.3; }
+  .tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs a {
+    position: relative; display: inline-flex; align-items: center; height: var(--appbar-h); padding: 0 14px;
+    color: var(--on-surface-variant); text-decoration: none; font-size: 0.875rem; font-weight: 500; white-space: nowrap;
+  }
+  .tabs a:hover { color: var(--on-surface); }
+  .tabs a[aria-current="true"] { color: var(--primary); }
+  .tabs a[aria-current="true"]::after {
+    content: ""; position: absolute; left: 14px; right: 14px; bottom: 0; height: 3px; border-radius: 3px 3px 0 0; background: var(--primary);
+  }
+  @media (max-width: 900px) {
+    .tabs { order: 3; width: 100%; margin-inline: -8px; }
+    .tabs a { height: 44px; padding: 0 10px; }
+    .tabs a[aria-current="true"]::after { left: 10px; right: 10px; }
+    .appbar-in { gap: 8px 12px; padding-top: 8px; }
+    .appbar .btn.tonal { padding: 0 16px; }
+  }
+
+  /* Section scaffolding */
+  section { scroll-margin-top: calc(var(--appbar-h) + 52px); }
+  @media (min-width: 901px) { section { scroll-margin-top: calc(var(--appbar-h) + 16px); } }
+  .block { padding-block: 56px 0; }
+  .overline { margin: 0 0 6px; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary); }
+  h2 { margin: 0; font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; font-stretch: 96%; text-wrap: balance; }
+  .intro { margin: 12px 0 0; max-width: 68ch; font-size: 1.0625rem; color: var(--on-surface-variant); }
+  .head { margin-bottom: 28px; }
+  h3 { margin: 0; font-size: 1.375rem; line-height: 1.3; font-weight: 600; text-wrap: balance; }
+  h4 { margin: 0; font-size: 1rem; line-height: 1.4; font-weight: 600; }
+  p { margin: 0; }
+  .card { background: var(--surface-low); border-radius: var(--r-xl); padding: 28px; }
+  .card.outlined { background: var(--surface); box-shadow: inset 0 0 0 1px var(--outline-variant); }
+  @media (max-width: 560px) { .card { padding: 22px 18px; border-radius: 24px; } }
+  .note { font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.5; }
+
+  /* Hero */
+  .hero {
+    margin-top: 24px; border-radius: 36px; padding: clamp(28px, 4vw, 56px);
+    background:
+      radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--primary-container) 75%, transparent) 0%, transparent 55%),
+      var(--surface-low);
+    display: grid; gap: 36px; grid-template-columns: minmax(0, 1fr);
+  }
+  @media (min-width: 1000px) { .hero { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: center; } }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; padding: 0; list-style: none; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: var(--r-sm);
+    font-size: 0.8125rem; font-weight: 500; color: var(--on-surface-variant); box-shadow: inset 0 0 0 1px var(--outline-variant);
+    background: var(--surface);
+  }
+  .chip .ms { font-size: 18px; color: var(--primary); }
   h1 {
-    font-family: var(--font-display);
-    font-size: var(--step-4);
-    font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    max-width: 23ch;
-    margin: 14px 0 0;
-    text-wrap: balance;
+    margin: 0; font-size: clamp(2.25rem, 1.35rem + 3.6vw, 3.9rem); line-height: 1.05; font-weight: 700;
+    letter-spacing: -0.025em; font-stretch: 92%; text-wrap: balance; max-width: 18ch;
   }
   h1 mark {
     color: inherit;
-    background: linear-gradient(to bottom, transparent 56%, var(--mark) 56%, var(--mark) 92%, transparent 92%);
-    padding-inline: 0.06em;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
+    background: linear-gradient(to bottom, transparent 58%, var(--tertiary-container) 58%, var(--tertiary-container) 92%, transparent 92%);
+    -webkit-box-decoration-break: clone; box-decoration-break: clone; padding-inline: 0.04em;
   }
-  .lede { font-size: 1.25rem; color: var(--ink-2); max-width: 60ch; margin: 22px 0 0; }
-  .byline { margin: 16px 0 0; font-family: var(--font-ui); font-size: var(--step-0); color: var(--ink-2); }
+  .lede { margin-top: 20px; font-size: 1.1875rem; line-height: 1.6; color: var(--on-surface-variant); max-width: 56ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 460px) { .kpis { grid-template-columns: minmax(0, 1fr); } }
+  .kpi { background: var(--surface-lowest); border-radius: 24px; padding: 20px; display: grid; gap: 10px; align-content: start; box-shadow: var(--shadow); }
+  .kpi .icon-badge { width: 40px; height: 40px; border-radius: 12px; }
+  .kpi .val { font-size: 2rem; line-height: 1.1; font-weight: 650; letter-spacing: -0.02em; font-stretch: 94%; }
+  .kpi p { font-size: 0.875rem; line-height: 1.45; color: var(--on-surface-variant); }
 
-  .glance {
-    margin-top: 40px;
-    background: var(--card);
-    border: 1px solid var(--rule);
-    border-radius: 8px;
-    padding: 24px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 22px 36px;
-  }
-  .glance div { display: grid; gap: 4px; align-content: start; }
-  .glance dt, .label {
-    font-family: var(--font-ui);
-    font-size: var(--step--1);
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .glance dd { margin: 0; font-family: var(--font-ui); font-size: var(--step-0); line-height: 1.5; color: var(--ink); }
-  dl { margin: 0; }
+  /* Snapshot */
+  .snapshot { margin-top: 16px; display: grid; gap: 4px 28px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .fact-row { display: flex; gap: 14px; padding: 14px 0; align-items: flex-start; }
+  .fact-row > .ms { color: var(--primary); margin-top: 2px; }
+  .fact-row dt { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--on-surface-variant); }
+  .fact-row dd { margin: 2px 0 0; font-size: 0.9375rem; line-height: 1.5; }
+  .fact-row.wide { grid-column: 1 / -1; }
+  .tool-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; padding: 0; list-style: none; }
+  .tool-chips li { height: 28px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: var(--r-sm); background: var(--secondary-container); color: var(--on-secondary-container); font-size: 0.8125rem; font-weight: 500; }
 
-  /* Sections */
-  .sec { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; padding-block: 52px 8px; }
-  .sec + .sec { border-top: 1px solid var(--rule); margin-top: 44px; }
-  .sec > h2 {
-    font-family: var(--font-display);
-    font-size: var(--step-3);
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    margin: 0;
-    text-wrap: balance;
-  }
-  @media (min-width: 960px) {
-    .sec { grid-template-columns: 210px minmax(0, 1fr); gap: 48px; }
-    .sec > h2 { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; }
-  }
-  .body { display: grid; gap: 22px; min-width: 0; }
-  .body > p, .sub > p { margin: 0; max-width: 66ch; }
-  .sub { display: grid; gap: 16px; padding-top: 18px; }
-  .sub + .sub { margin-top: 26px; }
-  h3 {
-    font-family: var(--font-display);
-    font-size: var(--step-2);
-    font-weight: 600;
-    line-height: 1.25;
-    margin: 0;
-    text-wrap: balance;
-  }
-  figure { margin: 0; }
-  figcaption, .note { font-family: var(--font-ui); font-size: var(--step--1); color: var(--muted); line-height: 1.5; }
+  /* ADDIE */
+  .addie { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); list-style: none; margin: 0; padding: 0; }
+  .phase { background: var(--surface-low); border-radius: 24px; padding: 22px; display: grid; gap: 12px; align-content: start; }
+  .phase-top { display: flex; align-items: center; justify-content: space-between; }
+  .letter { width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; background: var(--primary); color: var(--on-primary); font-size: 1.5rem; font-weight: 700; font-stretch: 90%; }
+  .phase-top .ms { color: var(--primary); }
+  .phase p { font-size: 0.9375rem; line-height: 1.55; color: var(--on-surface-variant); }
+
+  /* Challenge */
+  .three { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .tile { background: var(--surface-low); border-radius: 24px; padding: 24px; display: grid; gap: 14px; align-content: start; }
+  .tile p { color: var(--on-surface-variant); font-size: 0.9375rem; line-height: 1.6; }
 
   /* Mapping table */
+  .table-card { padding: 8px 0 0; overflow: hidden; }
   .table-wrap { overflow-x: auto; }
-  table { border-collapse: collapse; width: 100%; font-family: var(--font-ui); font-size: var(--step-0); line-height: 1.45; }
-  .map { min-width: 640px; }
-  th { text-align: left; font-weight: 600; font-size: var(--step--1); letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding: 8px 14px 10px 0; border-bottom: 1px solid var(--rule); }
-  td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--grid); vertical-align: top; }
-  .map td:first-child { font-weight: 600; width: 27%; overflow-wrap: anywhere; }
-  .map td:last-child { color: var(--accent); font-weight: 500; width: 24%; }
-  .map td:nth-child(2) { color: var(--ink-2); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9375rem; line-height: 1.45; }
+  .map { min-width: 680px; }
+  th { text-align: left; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--on-surface-variant); padding: 14px 20px; }
+  td { padding: 14px 20px; border-top: 1px solid var(--outline-variant); vertical-align: top; }
+  .map td:first-child { font-weight: 600; width: 27%; }
+  .map td:nth-child(2) { color: var(--on-surface-variant); }
+  .map td:last-child { width: 26%; }
+  @media (max-width: 640px) {
+    .map { min-width: 0; }
+    .map thead { display: none; }
+    .map tr { display: grid; gap: 6px; padding: 16px 20px; border-top: 1px solid var(--outline-variant); }
+    .map tbody tr:first-child { border-top: 0; }
+    .map td { border: 0; padding: 0; width: auto !important; }
+    .table-card { padding-top: 0; }
+  }
+  .term { display: inline-block; padding: 2px 10px; border-radius: var(--r-sm); background: var(--primary-container); color: var(--on-primary-container); font-weight: 500; font-size: 0.875rem; }
 
-  /* Planning steps */
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 4px 28px; }
-  .steps li { display: grid; grid-template-columns: 2ch minmax(0, 1fr); gap: 2px 12px; padding: 10px 0; border-bottom: 1px solid var(--grid); font-family: var(--font-ui); }
-  .steps .n { grid-row: span 2; font-size: var(--step-0); font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
-  .steps .name { font-size: var(--step-0); font-weight: 500; color: var(--ink); line-height: 1.35; }
-  .pill { justify-self: start; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em; padding: 2px 9px; border-radius: 999px; line-height: 1.6; }
-  .pill.paper { background: var(--accent-soft); color: var(--accent); }
-  .pill.talk { border: 1px solid var(--rule); color: var(--ink-2); }
+  /* Design cards */
+  .decisions { display: grid; gap: 20px; }
+  .decision { display: grid; gap: 22px; }
+  .decision-head { display: flex; gap: 16px; align-items: flex-start; }
+  .decision-head p { margin-top: 8px; color: var(--on-surface-variant); max-width: 70ch; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); }
+  .steps li { display: flex; align-items: center; gap: 12px; padding: 10px 14px 10px 10px; border-radius: var(--r-lg); background: var(--surface-lowest); }
+  .num { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 0.8125rem; font-weight: 600; flex: none; font-variant-numeric: tabular-nums; background: var(--surface-high); color: var(--on-surface-variant); }
+  .steps li.graded .num { background: var(--primary); color: var(--on-primary); }
+  .steps .name { font-size: 0.9375rem; font-weight: 500; line-height: 1.35; flex: 1; min-width: 0; }
+  .tag { flex: none; font-size: 0.75rem; font-weight: 600; padding: 3px 9px; border-radius: var(--r-sm); white-space: nowrap; }
+  .tag.paper { background: var(--primary-container); color: var(--on-primary-container); }
+  .tag.talk { box-shadow: inset 0 0 0 1px var(--outline); color: var(--on-surface-variant); }
+  .tag.x2 { background: var(--tertiary-container); color: var(--on-tertiary-container); }
+  .legend-line { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 12px; font-size: 0.8125rem; color: var(--on-surface-variant); align-items: center; }
+  .legend-line span { display: inline-flex; gap: 6px; align-items: center; }
+  .legend-line .dotk { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
 
-  /* Four-part chapter example */
-  .parts { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
-  .parts-head { padding: 14px 20px; border-bottom: 1px solid var(--rule); font-family: var(--font-ui); font-size: var(--step-0); font-weight: 600; }
-  .parts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-  .part { padding: 16px 20px 20px; display: grid; gap: 8px; align-content: start; border-top: 1px solid var(--grid); margin-top: -1px; }
-  .part p { margin: 0; font-size: 1rem; line-height: 1.55; }
-  .part .label { color: var(--accent); }
+  .parts { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .part { background: var(--surface-lowest); border-radius: 20px; padding: 18px 18px 20px; display: grid; gap: 10px; align-content: start; }
+  .part-label { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8125rem; font-weight: 600; color: var(--primary); }
+  .part-label b { width: 24px; height: 24px; border-radius: 8px; display: grid; place-items: center; background: var(--primary-container); color: var(--on-primary-container); font-size: 0.75rem; }
+  .part p { font-size: 0.9375rem; line-height: 1.55; }
+  .example-title { font-size: 0.875rem; font-weight: 600; color: var(--on-surface-variant); margin-bottom: 10px; }
 
-  /* Semester rhythm */
-  .weeks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); gap: 4px; }
-  @media (max-width: 720px) { .weeks { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+  .weeks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); gap: 6px; }
+  @media (max-width: 760px) { .weeks { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
   @media (max-width: 420px) { .weeks { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-  .wk { border-radius: 6px; padding: 8px 4px 9px; text-align: center; font-family: var(--font-ui); line-height: 1.25; display: grid; gap: 2px; }
+  .wk { border-radius: var(--r-md); padding: 10px 2px; text-align: center; line-height: 1.2; display: grid; gap: 3px; }
   .wk .g { font-size: 0.875rem; }
   .wk b { font-size: 0.8125rem; font-weight: 600; }
-  .wk span { font-size: 0.75rem; }
-  .wk.inp { background: var(--accent); color: var(--accent-ink); }
-  .wk.onl { background: var(--accent-soft); color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
-  .wk.self { background: var(--quiet); color: var(--ink-2); }
-  .wk.hol { box-shadow: inset 0 0 0 1px var(--rule); color: var(--muted); }
-  .key { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-2); }
+  .wk span { font-size: 0.6875rem; }
+  .wk.inp { background: var(--primary); color: var(--on-primary); }
+  .wk.onl { background: var(--primary-container); color: var(--on-primary-container); box-shadow: inset 0 0 0 1.5px var(--primary); }
+  .wk.self { background: var(--surface-high); color: var(--on-surface-variant); }
+  .wk.hol { background: var(--surface-lowest); color: var(--on-surface-variant); box-shadow: inset 0 0 0 1px var(--outline-variant); }
+  .key { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.8125rem; color: var(--on-surface-variant); }
   .key li { display: flex; align-items: center; gap: 6px; }
-  .sw { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
-  .sw.inp { background: var(--accent); }
-  .sw.onl { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
-  .sw.self { background: var(--quiet); box-shadow: inset 0 0 0 1px var(--rule); }
-  .sw.hol { box-shadow: inset 0 0 0 1px var(--rule); }
-  .milestones { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px 24px; font-family: var(--font-ui); font-size: var(--step-0); }
-  .milestones li { display: grid; gap: 2px; }
-  .milestones b { font-size: var(--step--1); font-weight: 600; color: var(--accent); letter-spacing: 0.02em; }
+  .sw { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+  .sw.inp { background: var(--primary); }
+  .sw.onl { background: var(--primary-container); box-shadow: inset 0 0 0 1.5px var(--primary); }
+  .sw.self { background: var(--surface-high); }
+  .sw.hol { background: var(--surface-lowest); box-shadow: inset 0 0 0 1px var(--outline); }
+  .milestones { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .milestones li { display: flex; gap: 10px; align-items: flex-start; background: var(--surface-lowest); border-radius: var(--r-lg); padding: 12px 14px; font-size: 0.875rem; line-height: 1.45; }
+  .milestones .ms { color: var(--primary); font-size: 20px; }
+  .milestones b { display: block; font-size: 0.75rem; font-weight: 600; color: var(--primary); letter-spacing: 0.02em; }
+  .activities { color: var(--on-surface-variant); max-width: 72ch; }
 
-  /* AI strand */
-  .thread { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
-  .thread li { display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: 4px 24px; padding: 14px 0; border-bottom: 1px solid var(--grid); }
-  .thread li:first-child { border-top: 1px solid var(--grid); }
-  .thread .when { font-family: var(--font-ui); font-size: var(--step--1); font-weight: 600; color: var(--accent); letter-spacing: 0.02em; padding-top: 3px; }
-  .thread h4 { margin: 0; font-family: var(--font-ui); font-size: var(--step-0); font-weight: 600; }
-  .thread p { margin: 4px 0 0; font-size: 1rem; line-height: 1.55; color: var(--ink-2); max-width: 64ch; }
-  @media (max-width: 560px) { .thread li { grid-template-columns: minmax(0, 1fr); } }
+  .stepper { list-style: none; margin: 0; padding: 0; display: grid; }
+  .stepper li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; position: relative; padding-bottom: 20px; }
+  .stepper li:last-child { padding-bottom: 0; }
+  .stepper li::before { content: ""; position: absolute; left: 21px; top: 46px; bottom: 0; width: 2px; background: var(--outline-variant); }
+  .stepper li:last-child::before { display: none; }
+  .stepper .icon-badge { position: relative; z-index: 1; }
+  .when { display: inline-block; font-size: 0.75rem; font-weight: 600; color: var(--on-secondary-container); background: var(--secondary-container); padding: 2px 8px; border-radius: 6px; margin-bottom: 6px; }
+  .stepper p { margin-top: 4px; font-size: 0.9375rem; line-height: 1.55; color: var(--on-surface-variant); max-width: 70ch; }
 
-  /* Rubric */
-  .rubric { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0 28px; font-family: var(--font-ui); font-size: var(--step-0); }
-  .rubric li { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-bottom: 1px solid var(--grid); }
-  .rubric .pts { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink-2); }
-  .rubric .x2 .pts { color: var(--accent); }
-  .total { margin: 10px 0 0; font-family: var(--font-ui); font-size: var(--step-0); font-weight: 600; }
+  .rubric { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .rubric li { display: flex; align-items: center; gap: 12px; background: var(--surface-lowest); border-radius: var(--r-md); padding: 10px 14px; font-size: 0.9375rem; }
+  .rubric li > span:first-child { flex: 1; min-width: 0; }
+  .pips { display: inline-flex; gap: 4px; flex: none; }
+  .pips i { width: 10px; height: 10px; border-radius: 3px; background: var(--primary); display: inline-block; }
+  .rubric li.x2 .pips i { background: var(--on-tertiary-container); }
+  .rubric li.x2 { background: var(--tertiary-container); color: var(--on-tertiary-container); }
+  .pts { font-size: 0.8125rem; font-weight: 600; color: var(--on-surface-variant); font-variant-numeric: tabular-nums; min-width: 4ch; text-align: right; }
+  .rubric li.x2 .pts { color: var(--on-tertiary-container); }
+  .total { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .total span { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: var(--r-sm); background: var(--secondary-container); color: var(--on-secondary-container); font-size: 0.875rem; font-weight: 600; }
+  .total .ms { font-size: 18px; }
 
   /* Chart */
-  .viz { position: relative; background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 20px 22px 18px; display: grid; gap: 14px; }
-  .viz-title { margin: 0; font-family: var(--font-ui); font-size: var(--step-0); font-weight: 600; color: var(--ink); }
-  .viz-sub { margin: 2px 0 0; font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-2); }
-  .legend { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 20px; font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-2); }
+  .viz { position: relative; background: var(--chart-surface); border-radius: var(--r-xl); padding: 26px 26px 20px; display: grid; gap: 16px; margin: 0; }
+  @media (max-width: 560px) { .viz { padding: 20px 16px 16px; border-radius: 24px; } }
+  .viz-title { font-size: 1.0625rem; font-weight: 600; }
+  .viz-sub { margin-top: 2px; font-size: 0.875rem; color: var(--on-surface-variant); }
+  .legend { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 0.8125rem; color: var(--on-surface-variant); }
   .legend li { display: flex; align-items: center; gap: 7px; }
   .legend i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
   .legend .k-pre { background: var(--series-pre); }
   .legend .k-post { background: var(--series-post); }
-  .plot { display: grid; gap: 10px; }
-  .row-label { margin: 0 0 2px; font-family: var(--font-ui); font-size: 0.875rem; font-weight: 500; color: var(--ink); line-height: 1.35; }
+  .plot { display: grid; gap: 12px; }
+  .row-label { margin-bottom: 2px; font-size: 0.875rem; font-weight: 500; line-height: 1.35; }
   .track {
-    position: relative;
-    height: 36px;
-    margin-inline: 18px;
-    background-image: linear-gradient(to right, var(--grid) 0 1px, transparent 1px);
-    background-size: 25% 100%;
-    background-repeat: repeat-x;
-    box-shadow: inset -1px 0 0 var(--grid);
+    position: relative; height: 36px; margin-inline: 18px;
+    background-image: linear-gradient(to right, var(--outline-variant) 0 1px, transparent 1px);
+    background-size: 25% 100%; background-repeat: repeat-x;
+    box-shadow: inset -1px 0 0 var(--outline-variant);
   }
   .link { position: absolute; top: calc(50% - 1px); height: 2px; left: calc((var(--a) - 1) / 4 * 100%); width: calc((var(--b) - var(--a)) / 4 * 100%); background: var(--series-pre); }
   .dot { position: absolute; top: 50%; left: calc((var(--v) - 1) / 4 * 100%); width: 28px; height: 28px; transform: translate(-50%, -50%); padding: 0; border: 0; background: transparent; border-radius: 50%; cursor: default; }
-  .dot::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 2px var(--card); transition: transform 120ms ease; }
+  .dot::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 2px var(--chart-surface); transition: transform 120ms ease; }
   .dot.pre { --c: var(--series-pre); }
   .dot.post { --c: var(--series-post); }
   .dot:hover::before, .dot:focus-visible::before { transform: scale(1.2); }
-  .dot:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
-  .val { position: absolute; top: 50%; transform: translateY(-50%); font-family: var(--font-ui); font-size: var(--step--1); font-weight: 600; color: var(--ink-2); white-space: nowrap; pointer-events: none; }
-  .pre .val { right: calc(100% - 2px); }
-  .post .val { left: calc(100% - 2px); }
-  .axis { position: relative; height: 18px; margin-inline: 18px; font-family: var(--font-ui); font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .dot:focus-visible { outline: 2px solid var(--on-surface); outline-offset: 1px; border-radius: 50%; }
+  .dot .val { position: absolute; top: 50%; transform: translateY(-50%); font-size: 0.8125rem; font-weight: 600; color: var(--on-surface-variant); white-space: nowrap; pointer-events: none; }
+  .dot.pre .val { right: calc(100% - 2px); }
+  .dot.post .val { left: calc(100% - 2px); }
+  .axis { position: relative; height: 18px; margin-inline: 18px; font-size: 0.75rem; color: var(--on-surface-variant); font-variant-numeric: tabular-nums; }
   .axis span { position: absolute; left: calc((var(--t) - 1) / 4 * 100%); transform: translateX(-50%); }
-  .axis-note { margin: 2px 0 0; text-align: center; }
+  .axis-note { margin-top: 4px; text-align: center; }
   .viz-tip {
-    position: absolute; z-index: 2; pointer-events: none;
-    transform: translate(-50%, calc(-100% - 8px));
-    background: var(--card); color: var(--ink); border: 1px solid var(--rule); border-radius: 6px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-    padding: 8px 10px; font-family: var(--font-ui); font-size: var(--step--1); line-height: 1.4;
-    display: grid; gap: 1px; min-width: 150px; max-width: 240px;
+    position: absolute; z-index: 2; pointer-events: none; transform: translate(-50%, calc(-100% - 8px));
+    background: var(--surface-lowest); color: var(--on-surface); border-radius: var(--r-md); box-shadow: var(--shadow);
+    padding: 10px 12px; font-size: 0.8125rem; line-height: 1.4; display: grid; gap: 2px; min-width: 150px; max-width: 240px;
   }
-  .viz-tip strong { font-size: var(--step-1); font-weight: 600; }
-  .viz-tip span { color: var(--ink-2); }
-  details.tv summary { font-family: var(--font-ui); font-size: var(--step--1); font-weight: 600; color: var(--accent); cursor: pointer; }
+  .viz-tip strong { font-size: 1.125rem; font-weight: 650; }
+  .viz-tip span { color: var(--on-surface-variant); }
+  details.tv summary { display: list-item; font-size: 0.875rem; font-weight: 500; color: var(--primary); cursor: pointer; }
   details.tv table { margin-top: 10px; }
-  details.tv td, details.tv th { padding-right: 18px; }
+  details.tv td, details.tv th { padding: 10px 14px 10px 0; }
   details.tv td:not(:first-child), details.tv th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .caveat { margin: 0; font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-2); line-height: 1.55; max-width: 72ch; }
+  .caveat { display: flex; gap: 12px; align-items: flex-start; margin-top: 14px; padding: 14px 16px; border-radius: var(--r-lg); background: var(--surface-container); font-size: 0.875rem; line-height: 1.55; color: var(--on-surface-variant); }
+  .caveat .ms { color: var(--primary); font-size: 20px; margin-top: 1px; }
 
-  /* Figures */
-  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px 28px; }
-  .fact { display: grid; gap: 6px; align-content: start; padding-top: 12px; border-top: 2px solid var(--ink); }
-  .fact .fig { font-family: var(--font-ui); font-size: 2rem; font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; }
-  .fact p { margin: 0; font-family: var(--font-ui); font-size: var(--step-0); line-height: 1.5; color: var(--ink-2); }
-  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px 32px; }
-  .two h4 { margin: 0 0 8px; font-family: var(--font-ui); font-size: var(--step-0); font-weight: 600; }
-  ul.plain { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: 1rem; line-height: 1.5; }
-  ul.plain li::marker { color: var(--muted); }
-  ul.list { margin: 0; padding-left: 1.1em; display: grid; gap: 10px; max-width: 68ch; }
-  ul.list li::marker { color: var(--accent); }
-  ul.list b { font-weight: 600; }
+  .facts { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 16px; }
+  .fact { background: var(--surface-low); border-radius: 24px; padding: 22px; display: grid; gap: 10px; align-content: start; }
+  .fact .fig { font-size: 2rem; font-weight: 650; line-height: 1.1; letter-spacing: -0.02em; font-stretch: 94%; }
+  .fact p { font-size: 0.9375rem; line-height: 1.55; color: var(--on-surface-variant); }
+  .quote { background: var(--secondary-container); color: var(--on-secondary-container); }
+  .quote p { color: var(--on-secondary-container); }
+  .two { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 16px; }
+  .list-card h3 { display: flex; align-items: center; gap: 12px; font-size: 1.125rem; }
+  .list-card ul { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; }
+  .list-card li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9375rem; line-height: 1.5; }
+  .list-card li .ms { font-size: 20px; color: var(--primary); margin-top: 1px; }
+  .list-card li b { font-weight: 600; }
 
-  footer { margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--rule); display: grid; gap: 6px; font-family: var(--font-ui); font-size: var(--step--1); color: var(--muted); }
-  footer p { margin: 0; max-width: 80ch; }
+  /* CTA + footer */
+  .cta {
+    margin-top: 64px; border-radius: 36px; padding: clamp(28px, 4vw, 48px);
+    background: var(--primary-container); color: var(--on-primary-container);
+    display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: center; justify-content: space-between;
+  }
+  .cta h2 { color: var(--on-primary-container); }
+  .cta p { margin-top: 8px; max-width: 52ch; }
+  footer { padding-block: 32px calc(40px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 6px; font-size: 0.8125rem; color: var(--on-surface-variant); }
+  footer p { max-width: 90ch; }
 
-  @media (prefers-reduced-motion: reduce) { .dot::before { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .dot::before, .btn { transition: none; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <p class="eyebrow">Case study · Blended course redesign · Spring 2026</p>
-    <h1>Teaching future teachers to plan for competence, with AI as a <mark>sparring partner</mark></h1>
-    <p class="lede">I redesigned and taught a 13-week course in which pre-service teachers plan a complete teaching unit, from a curriculum competency to an eight-lesson plan with assessment. In 2026 I added a strand on generative AI that trains one skill, judging what the AI produces.</p>
-    <p class="byline">By Lea Thommen · <a href="https://www.linkedin.com/in/leathommen/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
 
-    <dl class="glance">
-      <div><dt>Role</dt><dd>Design lead and instructor. I redesigned the course, wrote most of the materials and taught the Brugg section. A faculty colleague co-authored the workbook as subject-matter expert.</dd></div>
-      <div><dt>Learners</dt><dd>About 12 pre-service teachers for lower secondary school (grades 7–9) in Economics, Work and Household, a subject close to Family and Consumer Sciences in the U.S.</dd></div>
-      <div><dt>Format</dt><dd>Blended. Seven 105-minute workshops (one online), four self-study weeks (two with optional coaching), and a self-paced OneNote workbook.</dd></div>
-      <div><dt>Scope</dt><dd>13 weeks, March to June 2026. 3 ECTS credits, about 75 hours of learner time.</dd></div>
-      <div><dt>Assessment</dt><dd>An individual unit plan of 8–12 pages covering about eight lessons, scored with a 10-criterion analytic rubric.</dd></div>
-      <div><dt>Outcome</dt><dd>All learners passed the final unit plan.</dd></div>
-      <div><dt>Tools</dt><dd>OneNote, Moodle, Mentimeter, Google Forms, ChatGPT, Gemini (Deep Research and a custom Gem), NotebookLM, Consensus.</dd></div>
-      <div><dt>Institution</dt><dd>FHNW School of Education, Switzerland. Course: <span lang="de">Fachdidaktik WAH 2.2, “Kompetenzorientiert planen”</span> (Planning for competence).</dd></div>
-    </dl>
-  </header>
+<header class="appbar">
+  <div class="wrap appbar-in">
+    <a class="brand" href="#top" aria-label="Lea Thommen, back to top">
+      <span class="avatar" aria-hidden="true">LT</span>
+      <span><b>Lea Thommen</b><small>Learning design portfolio</small></span>
+    </a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#process">Process</a>
+      <a href="#challenge">Challenge</a>
+      <a href="#design">Design</a>
+      <a href="#results">Results</a>
+      <a href="#reflection">Reflection</a>
+    </nav>
+    <a class="btn tonal" href="https://www.linkedin.com/in/leathommen/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)"><span class="label">LinkedIn</span><span class="ms" aria-hidden="true">open_in_new</span></a>
+  </div>
+</header>
 
-  <section class="sec" aria-labelledby="s-brief">
-    <h2 id="s-brief">The brief</h2>
-    <div class="body">
-      <p>Pre-service teachers in this module plan a complete teaching unit the way the Swiss curriculum, <span lang="de">Lehrplan 21</span>, expects. They start from a competency, work out what pupils need to know and be able to do, write observable objectives, decide how to assess them, and only then design the learning tasks. It is a long chain of decisions, and each one depends on the one before.</p>
-      <p>Only about 12 of the 75 hours happen in workshops. The workbook has to carry learners through the rest on their own.</p>
-      <p>The 2026 group also arrived using AI. In the week-1 survey, 10 of 11 respondents already used ChatGPT, and 9 had used AI for the subject-research step of planning. A vague prompt returns a plan that looks finished. Judging whether it meets the course’s quality criteria takes the same expertise the course is meant to build, so the AI strand had to train that judgment.</p>
+<main class="wrap" id="top">
+
+  <section class="hero" aria-labelledby="title">
+    <div>
+      <ul class="chips" aria-label="Topics">
+        <li class="chip"><span class="ms" aria-hidden="true">school</span>Case study</li>
+        <li class="chip"><span class="ms" aria-hidden="true">devices</span>Blended learning</li>
+        <li class="chip"><span class="ms" aria-hidden="true">smart_toy</span>AI enablement</li>
+        <li class="chip"><span class="ms" aria-hidden="true">event</span>Spring 2026</li>
+      </ul>
+      <h1 id="title">Teaching future teachers to plan for competence, with AI as a <mark>sparring partner</mark></h1>
+      <p class="lede">I redesigned and taught a 13-week course in which pre-service teachers plan a complete teaching unit, from a curriculum competency to an eight-lesson plan with assessment. In 2026 I added a strand on generative AI that trains one skill, judging what the AI produces.</p>
+      <div class="actions">
+        <a class="btn filled" href="#results">See the results<span class="ms" aria-hidden="true">arrow_forward</span></a>
+        <a class="btn outlined" href="https://www.linkedin.com/in/leathommen/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn<span class="ms" aria-hidden="true">open_in_new</span></a>
+      </div>
+    </div>
+    <div class="kpis" aria-label="Key results">
+      <div class="kpi"><span class="icon-badge"><span class="ms fill" aria-hidden="true">verified</span></span><span class="val">All passed</span><p>Every learner passed the final unit plan, scored with a 33-point rubric.</p></div>
+      <div class="kpi"><span class="icon-badge"><span class="ms" aria-hidden="true">trending_up</span></span><span class="val">+0.8</span><p>Average rise across three self-rated confidence items on AI planning (1–5 scale).</p></div>
+      <div class="kpi"><span class="icon-badge"><span class="ms" aria-hidden="true">fact_check</span></span><span class="val">6 of 6</span><p>End-survey respondents had to correct AI output at least sometimes to meet teaching standards.</p></div>
+      <div class="kpi"><span class="icon-badge"><span class="ms" aria-hidden="true">calendar_month</span></span><span class="val">13 weeks</span><p>Seven workshops, four self-study weeks and a self-paced workbook.</p></div>
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="s-map">
-    <h2 id="s-map">Translated for corporate L&amp;D</h2>
-    <div class="body">
-      <p>The planning process follows backward-design logic, with outcomes first, assessment second and learning activities last. The table maps each step to the term a corporate L&amp;D team would use.</p>
+  <section class="block" aria-labelledby="s-snapshot">
+    <div class="card outlined">
+      <p class="overline">Project snapshot</p>
+      <h2 id="s-snapshot">Course at a glance</h2>
+      <dl class="snapshot">
+        <div class="fact-row"><span class="ms" aria-hidden="true">person</span><div><dt>Role</dt><dd>Design lead and instructor. I redesigned the course, wrote most of the materials and taught the Brugg section. A faculty colleague co-authored the workbook as subject-matter expert.</dd></div></div>
+        <div class="fact-row"><span class="ms" aria-hidden="true">groups</span><div><dt>Learners</dt><dd>About 12 pre-service teachers for lower secondary school (grades 7–9) in Economics, Work and Household, a subject close to Family and Consumer Sciences in the U.S.</dd></div></div>
+        <div class="fact-row"><span class="ms" aria-hidden="true">devices</span><div><dt>Format</dt><dd>Blended. Seven 105-minute workshops (one online), four self-study weeks (two with optional coaching), and a self-paced OneNote workbook.</dd></div></div>
+        <div class="fact-row"><span class="ms" aria-hidden="true">schedule</span><div><dt>Scope</dt><dd>13 weeks, March to June 2026. 3 ECTS credits, about 75 hours of learner time.</dd></div></div>
+        <div class="fact-row"><span class="ms" aria-hidden="true">grading</span><div><dt>Assessment</dt><dd>An individual unit plan of 8–12 pages covering about eight lessons, scored with a 10-criterion analytic rubric. All learners passed.</dd></div></div>
+        <div class="fact-row"><span class="ms" aria-hidden="true">account_balance</span><div><dt>Institution</dt><dd>FHNW School of Education, Switzerland. Course: <span lang="de">Fachdidaktik WAH 2.2, “Kompetenzorientiert planen”</span> (Planning for competence).</dd></div></div>
+        <div class="fact-row wide"><span class="ms" aria-hidden="true">build</span><div><dt>Tools</dt><dd><ul class="tool-chips"><li>OneNote</li><li>Moodle</li><li>Mentimeter</li><li>Google Forms</li><li>ChatGPT</li><li>Gemini Deep Research</li><li>Custom Gemini Gem</li><li>NotebookLM</li><li>Consensus</li></ul></dd></div></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block" id="process" aria-labelledby="s-process">
+    <div class="head">
+      <p class="overline">How I worked</p>
+      <h2 id="s-process">My process, in ADDIE terms</h2>
+      <p class="intro">Corporate L&amp;D teams often plan in the five ADDIE phases. Here is where each part of the course sits.</p>
+    </div>
+    <ol class="addie">
+      <li class="phase"><div class="phase-top"><span class="letter" aria-hidden="true">A</span><span class="ms" aria-hidden="true">insights</span></div><h3>Analyze</h3><p>A week-1 needs survey on AI use and confidence, plus a SOFT self-assessment of each learner’s planning skills.</p></li>
+      <li class="phase"><div class="phase-top"><span class="letter" aria-hidden="true">D</span><span class="ms" aria-hidden="true">architecture</span></div><h3>Design</h3><p>Backward design from competency to objectives, assessment and tasks, with a 10-criterion rubric tied to every graded step.</p></li>
+      <li class="phase"><div class="phase-top"><span class="letter" aria-hidden="true">D</span><span class="ms" aria-hidden="true">edit_note</span></div><h3>Develop</h3><p>A OneNote workbook built on one four-part chapter template, slide decks with timed facilitator notes, and a custom Gemini Gem.</p></li>
+      <li class="phase"><div class="phase-top"><span class="letter" aria-hidden="true">I</span><span class="ms" aria-hidden="true">co_present</span></div><h3>Implement</h3><p>Seven workshops alternating with self-study, built around each learner’s own unit and regular peer feedback.</p></li>
+      <li class="phase"><div class="phase-top"><span class="letter" aria-hidden="true">E</span><span class="ms" aria-hidden="true">monitoring</span></div><h3>Evaluate</h3><p>A rubric-scored final paper, a start-and-end survey and anonymous course feedback.</p></li>
+    </ol>
+  </section>
+
+  <section class="block" id="challenge" aria-labelledby="s-challenge">
+    <div class="head">
+      <p class="overline">The challenge</p>
+      <h2 id="s-challenge">What made this course hard to design</h2>
+    </div>
+    <div class="three">
+      <div class="tile"><span class="icon-badge"><span class="ms" aria-hidden="true">link</span></span><h3>A long chain of decisions</h3><p>Learners plan a full unit the way the Swiss curriculum, <span lang="de">Lehrplan 21</span>, expects: start from a competency, work out what pupils need to know and do, write objectives, plan assessment, then design tasks. Each step depends on the one before.</p></div>
+      <div class="tile"><span class="icon-badge"><span class="ms" aria-hidden="true">schedule</span></span><h3>Mostly self-directed</h3><p>Only about 12 of the 75 hours happen in workshops. The workbook has to carry learners through the rest on their own.</p></div>
+      <div class="tile"><span class="icon-badge"><span class="ms" aria-hidden="true">smart_toy</span></span><h3>AI already in use</h3><p>In the week-1 survey, 10 of 11 respondents already used ChatGPT, and 9 had used AI for subject research. A vague prompt returns a plan that looks finished, so judging AI output had to become a learning goal.</p></div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="s-map">
+    <div class="head">
+      <p class="overline">For corporate readers</p>
+      <h2 id="s-map">Translated for corporate L&amp;D</h2>
+      <p class="intro">The planning process follows backward-design logic, with outcomes first, assessment second and learning activities last. Each step maps to a term a corporate L&amp;D team would use.</p>
+    </div>
+    <div class="card outlined table-card">
       <div class="table-wrap">
         <table class="map">
           <thead><tr><th scope="col">Step in the course</th><th scope="col">What learners do</th><th scope="col">Corporate L&amp;D term</th></tr></thead>
           <tbody>
-            <tr><td lang="de">Kompetenzanalyse</td><td>Break a curriculum competency into knowledge, skills and attitudes</td><td>Competency or task analysis</td></tr>
-            <tr><td lang="de">Sachanalyse</td><td>Research the subject in expert sources and map it as a concept map</td><td>Content analysis</td></tr>
-            <tr><td lang="de">Begründungsanalyse</td><td>Make the case for why the competency matters to pupils, as a two-minute pitch</td><td>Rationale (the learner’s “why”)</td></tr>
-            <tr><td lang="de">Lernvoraussetzungen</td><td>Map prior knowledge and likely misconceptions</td><td>Learner analysis</td></tr>
-            <tr><td lang="de">Kompetenzorientierte Lernziele</td><td>Write observable objectives that pair content with an action verb, using Anderson and Krathwohl’s taxonomy</td><td>Measurable objectives</td></tr>
-            <tr><td lang="de">Beurteilung</td><td>Plan formative and summative checks before designing activities</td><td>Assessment strategy</td></tr>
-            <tr><td lang="de">Kompetenzförderndes Aufgabenset</td><td>Sequence tasks by their function: confront, build, practice, synthesize, transfer (the LUKAS model)</td><td>Scaffolded practice sequence</td></tr>
-            <tr><td lang="de">Grobplanung</td><td>Lay the tasks out over about eight lessons</td><td>Course map</td></tr>
-            <tr><td lang="de">Evaluation und Reflexion</td><td>Review the plan and their own learning</td><td>Evaluation and retrospective</td></tr>
+            <tr><td lang="de">Kompetenzanalyse</td><td>Break a curriculum competency into knowledge, skills and attitudes</td><td><span class="term">Competency or task analysis</span></td></tr>
+            <tr><td lang="de">Sachanalyse</td><td>Research the subject in expert sources and map it as a concept map</td><td><span class="term">Content analysis</span></td></tr>
+            <tr><td lang="de">Begründungsanalyse</td><td>Make the case for why the competency matters to pupils, as a two-minute pitch</td><td><span class="term">Rationale (the learner’s “why”)</span></td></tr>
+            <tr><td lang="de">Lernvoraussetzungen</td><td>Map prior knowledge and likely misconceptions</td><td><span class="term">Learner analysis</span></td></tr>
+            <tr><td lang="de">Kompetenzorientierte Lernziele</td><td>Write observable objectives that pair content with an action verb, using Anderson and Krathwohl’s taxonomy</td><td><span class="term">Measurable objectives</span></td></tr>
+            <tr><td lang="de">Beurteilung</td><td>Plan formative and summative checks before designing activities</td><td><span class="term">Assessment strategy</span></td></tr>
+            <tr><td lang="de">Kompetenzförderndes Aufgabenset</td><td>Sequence tasks by their function: confront, build, practice, synthesize, transfer (the LUKAS model)</td><td><span class="term">Scaffolded practice sequence</span></td></tr>
+            <tr><td lang="de">Grobplanung</td><td>Lay the tasks out over about eight lessons</td><td><span class="term">Course map</span></td></tr>
+            <tr><td lang="de">Evaluation und Reflexion</td><td>Review the plan and their own learning</td><td><span class="term">Evaluation and retrospective</span></td></tr>
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="s-design">
-    <h2 id="s-design">What I designed</h2>
-    <div class="body">
+  <section class="block" id="design" aria-labelledby="s-design">
+    <div class="head">
+      <p class="overline">What I designed</p>
+      <h2 id="s-design">Five design decisions</h2>
+    </div>
+    <div class="decisions">
 
-      <div class="sub">
-        <h3>One process, one workbook, one rubric</h3>
-        <p>The planning process is the spine of the course. Each step is a workbook chapter, the topic of an in-person session and a criterion in the final rubric, so learners always know which part of their paper they are building. Steps that mainly support thinking are discussed in class but not written up, which keeps the paper focused on decisions.</p>
-        <figure>
+      <article class="card decision">
+        <div class="decision-head">
+          <span class="icon-badge"><span class="ms" aria-hidden="true">account_tree</span></span>
+          <div>
+            <h3>One process, one workbook, one rubric</h3>
+            <p>The planning process is the spine of the course. Each step is a workbook chapter, the topic of an in-person session and a criterion in the final rubric, so learners always know which part of their paper they are building. Steps that mainly support thinking are discussed in class but not written up, which keeps the paper focused on decisions.</p>
+          </div>
+        </div>
+        <figure style="margin:0">
           <ol class="steps">
-            <li><span class="n">1</span><span class="name">Competency-oriented teaching</span><span class="pill paper">In the paper</span></li>
-            <li><span class="n">2</span><span class="name">Competency analysis</span><span class="pill paper">In the paper</span></li>
-            <li><span class="n">3</span><span class="name">Content analysis</span><span class="pill paper">In the paper</span></li>
-            <li><span class="n">4</span><span class="name">Rationale</span><span class="pill talk">Discussed in class</span></li>
-            <li><span class="n">5</span><span class="name">Learner analysis</span><span class="pill paper">In the paper</span></li>
-            <li><span class="n">6</span><span class="name">Didactic reconstruction: linking content to pupils’ prior ideas</span><span class="pill talk">Discussed in class</span></li>
-            <li><span class="n">7</span><span class="name">Objectives</span><span class="pill paper">In the paper</span></li>
-            <li><span class="n">8</span><span class="name">Assessment</span><span class="pill paper">In the paper</span></li>
-            <li><span class="n">9</span><span class="name">Task set</span><span class="pill paper">In the paper · counts double</span></li>
-            <li><span class="n">10</span><span class="name">Methods</span><span class="pill talk">Discussed in class</span></li>
-            <li><span class="n">11</span><span class="name">Unit plan</span><span class="pill paper">In the paper</span></li>
-            <li><span class="n">12</span><span class="name">Evaluation and reflection</span><span class="pill paper">In the paper</span></li>
+            <li class="graded"><span class="num">1</span><span class="name">Competency-oriented teaching</span><span class="tag paper">In the paper</span></li>
+            <li class="graded"><span class="num">2</span><span class="name">Competency analysis</span><span class="tag paper">In the paper</span></li>
+            <li class="graded"><span class="num">3</span><span class="name">Content analysis</span><span class="tag paper">In the paper</span></li>
+            <li><span class="num">4</span><span class="name">Rationale</span><span class="tag talk">Discussed</span></li>
+            <li class="graded"><span class="num">5</span><span class="name">Learner analysis</span><span class="tag paper">In the paper</span></li>
+            <li><span class="num">6</span><span class="name">Didactic reconstruction</span><span class="tag talk">Discussed</span></li>
+            <li class="graded"><span class="num">7</span><span class="name">Objectives</span><span class="tag paper">In the paper</span></li>
+            <li class="graded"><span class="num">8</span><span class="name">Assessment</span><span class="tag paper">In the paper</span></li>
+            <li class="graded"><span class="num">9</span><span class="name">Task set</span><span class="tag x2">Counts double</span></li>
+            <li><span class="num">10</span><span class="name">Methods</span><span class="tag talk">Discussed</span></li>
+            <li class="graded"><span class="num">11</span><span class="name">Unit plan</span><span class="tag paper">In the paper</span></li>
+            <li class="graded"><span class="num">12</span><span class="name">Evaluation and reflection</span><span class="tag paper">In the paper</span></li>
           </ol>
-          <figcaption>The planning steps in course order. The rubric scores every step marked “In the paper”.</figcaption>
+          <figcaption class="legend-line">
+            <span><i class="dotk" style="background: var(--primary)"></i>Scored in the final paper</span>
+            <span><i class="dotk" style="background: var(--surface-high); box-shadow: inset 0 0 0 1px var(--outline)"></i>Discussed in class, not written up</span>
+            <span>Didactic reconstruction links subject content to pupils’ prior ideas.</span>
+          </figcaption>
         </figure>
-      </div>
+      </article>
 
-      <div class="sub">
-        <h3>Every chapter has the same four parts</h3>
-        <p>I turned the course’s planning guide into a OneNote workbook that learners copy into their own notebooks and write in directly. Every chapter follows the same four-part pattern, so learners spend their effort on the content instead of on finding their way around.</p>
-        <figure class="parts">
-          <div class="parts-head">Example: the task-set chapter (translated)</div>
-          <div class="parts-grid">
-            <div class="part"><span class="label">1 · Task</span><p>Create an overview of your task set, then write the tasks and show where they sit in your lessons. Use each task type at least once: confrontation, development, practice, synthesis and transfer.</p></div>
-            <div class="part"><span class="label">2 · What it’s about</span><p>Tasks are the core of competence-building teaching. A process model shows which function each task type serves on the learner’s path from first contact to applying the competency.</p></div>
-            <div class="part"><span class="label">3 · Literature</span><p>Reusser (2014); Wilhelm, Luthiger and Wespi (2014).</p></div>
-            <div class="part"><span class="label">4 · Self-check</span><p>My task set supports the intended competency, and each task type matches its function in the learning process.</p></div>
+      <article class="card decision">
+        <div class="decision-head">
+          <span class="icon-badge"><span class="ms" aria-hidden="true">menu_book</span></span>
+          <div>
+            <h3>Every chapter has the same four parts</h3>
+            <p>I turned the course’s PDF planning guide into a OneNote workbook that learners copy into their own notebooks and write in directly. Every chapter follows the same four-part pattern, so learners spend their effort on the content instead of on finding their way around.</p>
+          </div>
+        </div>
+        <figure style="margin:0">
+          <p class="example-title">Example: the task-set chapter (translated)</p>
+          <div class="parts">
+            <div class="part"><span class="part-label"><b>1</b>Task</span><p>Create an overview of your task set, then write the tasks and show where they sit in your lessons. Use each task type at least once: confrontation, development, practice, synthesis and transfer.</p></div>
+            <div class="part"><span class="part-label"><b>2</b>What it’s about</span><p>Tasks are the core of competence-building teaching. A process model shows which function each task type serves on the learner’s path from first contact to applying the competency.</p></div>
+            <div class="part"><span class="part-label"><b>3</b>Literature</span><p>Reusser (2014); Wilhelm, Luthiger and Wespi (2014).</p></div>
+            <div class="part"><span class="part-label"><b>4</b>Self-check</span><p>My task set supports the intended competency, and each task type matches its function in the learning process.</p></div>
           </div>
         </figure>
-      </div>
+      </article>
 
-      <div class="sub">
-        <h3>A blended rhythm around each learner’s own unit</h3>
-        <p>In-person weeks alternate with self-study weeks. Every workshop follows the same arc: a short retrieval or progress check, a brief input, time to apply it to the learner’s own unit, and peer feedback. My facilitator notes time each block to the minute and mark optional “booster” slides for groups that move faster.</p>
-        <figure>
+      <article class="card decision">
+        <div class="decision-head">
+          <span class="icon-badge"><span class="ms" aria-hidden="true">date_range</span></span>
+          <div>
+            <h3>A blended rhythm around each learner’s own unit</h3>
+            <p>In-person weeks alternate with self-study weeks. Every workshop follows the same arc: a short retrieval or progress check, a brief input, time to apply it to the learner’s own unit, and peer feedback. My facilitator notes time each block to the minute and mark optional “booster” slides for groups that move faster.</p>
+          </div>
+        </div>
+        <figure style="margin:0">
           <ol class="weeks" aria-label="The 13-week semester">
             <li class="wk inp" aria-label="Week 1, March 2: in person"><span class="g" aria-hidden="true">●</span><b>Wk 1</b><span>Mar 2</span></li>
             <li class="wk self" aria-label="Week 2, March 9: self-study"><span class="g" aria-hidden="true">○</span><b>Wk 2</b><span>Mar 9</span></li>
@@ -429,210 +616,245 @@
             <li><i class="sw hol"></i>– Public holiday</li>
           </ul>
           <ul class="milestones">
-            <li><b>Week 8 · Apr 20</b>Optional early feedback on three chapters</li>
-            <li><b>Week 12 · May 18</b>Highlights presentations and end-of-semester survey</li>
-            <li><b>Jun 5</b>Final paper due</li>
+            <li><span class="ms" aria-hidden="true">chat</span><div><b>Week 8 · Apr 20</b>Optional early feedback on three chapters</div></li>
+            <li><span class="ms" aria-hidden="true">co_present</span><div><b>Week 12 · May 18</b>Highlights presentations and end-of-semester survey</div></li>
+            <li><span class="ms" aria-hidden="true">assignment_turned_in</span><div><b>Jun 5</b>Final paper due</div></li>
           </ul>
         </figure>
-        <p>Activities kept learners talking about their own work: speed dating to compare competency analyses, a two-minute elevator pitch for the rationale, a matching puzzle on the five task types in online breakout rooms, and a SOFT self-assessment (a SWOT variant for one’s own skills) in week 1 that learners revisited in the final session.</p>
-      </div>
+        <p class="activities">Activities kept learners talking about their own work: speed dating to compare competency analyses, a two-minute elevator pitch for the rationale, a matching puzzle on the five task types in online breakout rooms, and a SOFT self-assessment (a SWOT variant for one’s own skills) in week 1 that learners revisited in the final session.</p>
+      </article>
 
-      <div class="sub">
-        <h3>An AI strand that trains judgment</h3>
-        <p>AI runs through the semester as a thread. Each activity sits at the planning step where it helps, and the activities keep coming back to checking the output against the course’s quality criteria.</p>
-        <ol class="thread">
-          <li><span class="when">Week 1</span><div><h4>Needs survey</h4><p>A five-minute anonymous survey, organized by ADDIE phase, asked about tools, confidence and what learners wanted to learn.</p></div></li>
-          <li><span class="when">Early weeks</span><div><h4>The vague-prompt experiment</h4><p>Pairs ran a deliberately vague prompt (“Create a lesson plan for two lessons on the production of goods and services”) and rated the result against six features of competency-oriented teaching (Feindt and Meyer, 2010). They then compared it with a context-rich prompt and with a master prompt that sets a role and rules, such as always producing a standard and a scaffolded version of each worksheet for pupils who need language support.</p></div></li>
-          <li><span class="when">Content analysis</span><div><h4>Source-grounded research</h4><p>Literature search with Consensus, a two-step Deep Research workflow in Gemini, and NotebookLM loaded with the learner’s own sources, introduced with a live demo notebook.</p></div></li>
-          <li><span class="when">Task design</span><div><h4>A custom planning assistant</h4><p>A master prompt and a Gemini Gem that I built on the curriculum and the LUKAS task model, introduced with a plain warning that its output comes with no guarantee and needs checking.</p></div></li>
-          <li><span class="when">Differentiation</span><div><h4>Adapting tasks</h4><p>Learners asked AI for ideas to adapt one of their own tasks for a different level or language demand, chose one, and got peer feedback on the result.</p></div></li>
-          <li><span class="when">Throughout</span><div><h4>Disclosure</h4><p>AI use must be cited in the paper, and correct citation is part of the rubric.</p></div></li>
-          <li><span class="when">Final session</span><div><h4>End survey and course feedback</h4><p>Follow-up confidence questions, plus questions on how learners actually used AI in their units.</p></div></li>
-        </ol>
-      </div>
-
-      <div class="sub">
-        <h3>Assessment that mirrors the process</h3>
-        <p>The final paper is an individual unit plan of 8 to 12 pages for about eight lessons, built on one of two curriculum competencies. An analytic rubric scores ten criteria from 0 to 3 points. The task set counts double because every earlier decision feeds into it.</p>
-        <figure>
-          <ul class="rubric">
-            <li><span>Competency-oriented teaching</span><span class="pts">3</span></li>
-            <li><span>Competency analysis</span><span class="pts">3</span></li>
-            <li><span>Content analysis</span><span class="pts">3</span></li>
-            <li><span>Learner analysis</span><span class="pts">3</span></li>
-            <li><span>Objectives</span><span class="pts">3</span></li>
-            <li><span>Assessment</span><span class="pts">3</span></li>
-            <li class="x2"><span>Task set (counts double)</span><span class="pts">6</span></li>
-            <li><span>Unit plan</span><span class="pts">3</span></li>
-            <li><span>Evaluation and reflection</span><span class="pts">3</span></li>
-            <li><span>Writing, citation and AI disclosure</span><span class="pts">3</span></li>
-          </ul>
-          <p class="total">33 points in total. The pass mark is 20 (60%).</p>
-        </figure>
-        <p>Learners could hand in their content analysis, objectives and task-set overview early for feedback. The final session is a mandatory “highlights” presentation, where peers give feedback in three moves: feed up (what is the goal?), feed back (where are you now?) and feed forward (what comes next?).</p>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="sec" aria-labelledby="s-results">
-    <h2 id="s-results">Results</h2>
-    <div class="body">
-      <p>All learners passed the final unit plan, scored against the 33-point rubric. I also collected three anonymous measures: the week-1 survey (11 responses), an end-of-semester survey in the final session (6 responses) and a course feedback form (7 responses). Together they cover Kirkpatrick Level 1 (reaction) and Level 2 (learning), assessed through the rubric and self-reported in the surveys.</p>
-
-      <figure class="viz" id="viz" aria-labelledby="viz-title">
-        <figcaption>
-          <p class="viz-title" id="viz-title">Self-rated confidence with AI in lesson planning</p>
-          <p class="viz-sub">Group averages, start and end of semester</p>
-          <ul class="legend">
-            <li><i class="k-pre"></i>Start of semester (n = 11)</li>
-            <li><i class="k-post"></i>End of semester (n = 6)</li>
-          </ul>
-        </figcaption>
-        <div class="plot">
-          <div class="row">
-            <p class="row-label">Steering AI with prompts to get useful planning results</p>
-            <div class="track">
-              <span class="link" style="--a: 3.36; --b: 4.17"></span>
-              <button type="button" class="dot pre" style="--v: 3.36" data-value="3.36" data-series="Start of semester · n = 11" aria-label="Steering AI with prompts, start of semester: 3.36 (n = 11)"><span class="val" aria-hidden="true">3.36</span></button>
-              <button type="button" class="dot post" style="--v: 4.17" data-value="4.17" data-series="End of semester · n = 6" aria-label="Steering AI with prompts, end of semester: 4.17 (n = 6)"><span class="val" aria-hidden="true">4.17</span></button>
-            </div>
-          </div>
-          <div class="row">
-            <p class="row-label">Checking AI output against the curriculum</p>
-            <div class="track">
-              <span class="link" style="--a: 3.00; --b: 3.83"></span>
-              <button type="button" class="dot pre" style="--v: 3.00" data-value="3.00" data-series="Start of semester · n = 11" aria-label="Checking AI output against the curriculum, start of semester: 3.00 (n = 11)"><span class="val" aria-hidden="true">3.00</span></button>
-              <button type="button" class="dot post" style="--v: 3.83" data-value="3.83" data-series="End of semester · n = 6" aria-label="Checking AI output against the curriculum, end of semester: 3.83 (n = 6)"><span class="val" aria-hidden="true">3.83</span></button>
-            </div>
-          </div>
-          <div class="row">
-            <p class="row-label">Judging whether an AI lesson plan meets quality criteria</p>
-            <div class="track">
-              <span class="link" style="--a: 2.91; --b: 3.67"></span>
-              <button type="button" class="dot pre" style="--v: 2.91" data-value="2.91" data-series="Start of semester · n = 11" aria-label="Judging an AI lesson plan, start of semester: 2.91 (n = 11)"><span class="val" aria-hidden="true">2.91</span></button>
-              <button type="button" class="dot post" style="--v: 3.67" data-value="3.67" data-series="End of semester · n = 6" aria-label="Judging an AI lesson plan, end of semester: 3.67 (n = 6)"><span class="val" aria-hidden="true">3.67</span></button>
-            </div>
-          </div>
+      <article class="card decision">
+        <div class="decision-head">
+          <span class="icon-badge"><span class="ms" aria-hidden="true">psychology</span></span>
           <div>
-            <div class="axis" aria-hidden="true"><span style="--t: 1">1</span><span style="--t: 2">2</span><span style="--t: 3">3</span><span style="--t: 4">4</span><span style="--t: 5">5</span></div>
-            <p class="note axis-note">1 = very unsure or strongly disagree · 5 = very sure or strongly agree</p>
+            <h3>An AI strand that trains judgment</h3>
+            <p>AI runs through the semester as a thread. Each activity sits at the planning step where it helps, and the activities keep coming back to checking the output against the course’s quality criteria.</p>
           </div>
         </div>
-        <div class="viz-tip" id="viz-tip" aria-hidden="true" hidden></div>
-        <details class="tv">
-          <summary>Show the numbers as a table</summary>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th scope="col">Self-rating (1–5)</th><th scope="col">Start (n = 11)</th><th scope="col">End (n = 6)</th><th scope="col">Change</th></tr></thead>
-              <tbody>
-                <tr><td>Steering AI with prompts</td><td>3.36</td><td>4.17</td><td>+0.80</td></tr>
-                <tr><td>Checking AI output against the curriculum</td><td>3.00</td><td>3.83</td><td>+0.83</td></tr>
-                <tr><td>Judging an AI lesson plan</td><td>2.91</td><td>3.67</td><td>+0.76</td></tr>
-              </tbody>
-            </table>
+        <ol class="stepper">
+          <li><span class="icon-badge"><span class="ms" aria-hidden="true">quiz</span></span><div><span class="when">Week 1</span><h4>Needs survey</h4><p>A five-minute anonymous survey, organized by ADDIE phase, asked about tools, confidence and what learners wanted to learn.</p></div></li>
+          <li><span class="icon-badge"><span class="ms" aria-hidden="true">chat</span></span><div><span class="when">Early weeks</span><h4>The vague-prompt experiment</h4><p>Pairs ran a deliberately vague prompt (“Create a lesson plan for two lessons on the production of goods and services”) and rated the result against six features of competency-oriented teaching (Feindt and Meyer, 2010). They then compared it with a context-rich prompt and with a master prompt that sets a role and rules, such as always producing a standard and a scaffolded version of each worksheet for pupils who need language support.</p></div></li>
+          <li><span class="icon-badge"><span class="ms" aria-hidden="true">travel_explore</span></span><div><span class="when">Content analysis</span><h4>Source-grounded research</h4><p>Literature search with Consensus, a two-step Deep Research workflow in Gemini, and NotebookLM loaded with the learner’s own sources, introduced with a live demo notebook.</p></div></li>
+          <li><span class="icon-badge"><span class="ms" aria-hidden="true">smart_toy</span></span><div><span class="when">Task design</span><h4>A custom planning assistant</h4><p>A master prompt and a Gemini Gem that I built on the curriculum and the LUKAS task model, introduced with a plain warning that its output comes with no guarantee and needs checking.</p></div></li>
+          <li><span class="icon-badge"><span class="ms" aria-hidden="true">tune</span></span><div><span class="when">Differentiation</span><h4>Adapting tasks</h4><p>Learners asked AI for ideas to adapt one of their own tasks for a different level or language demand, chose one, and got peer feedback on the result.</p></div></li>
+          <li><span class="icon-badge"><span class="ms" aria-hidden="true">format_quote</span></span><div><span class="when">Throughout</span><h4>Disclosure</h4><p>AI use must be cited in the paper, and correct citation is part of the rubric.</p></div></li>
+          <li><span class="icon-badge"><span class="ms" aria-hidden="true">assignment_turned_in</span></span><div><span class="when">Final session</span><h4>End survey and course feedback</h4><p>Follow-up confidence questions, plus questions on how learners actually used AI in their units.</p></div></li>
+        </ol>
+      </article>
+
+      <article class="card decision">
+        <div class="decision-head">
+          <span class="icon-badge"><span class="ms" aria-hidden="true">checklist</span></span>
+          <div>
+            <h3>Assessment that mirrors the process</h3>
+            <p>The final paper is an individual unit plan of 8 to 12 pages for about eight lessons, built on one of two curriculum competencies. An analytic rubric scores ten criteria from 0 to 3 points. The task set counts double because every earlier decision feeds into it.</p>
           </div>
-          <p class="note">Changes are computed from unrounded averages.</p>
-        </details>
-      </figure>
-      <p class="caveat">These are self-ratings, not test scores. The two groups are not matched person by person, the end survey reached about half the group, and the item wording changed slightly between surveys. Read the shift as a direction, not a measured effect.</p>
-
-      <div class="facts">
-        <div class="fact"><span class="fig">6 of 6</span><p>end-survey respondents had to correct or adapt AI suggestions at least sometimes to meet subject-teaching standards. No one chose 1 or 2 on a 5-point scale where 1 means the AI never needed correcting.</p></div>
-        <div class="fact"><span class="fig">3.2 of 5</span><p>average rating for how much AI improved the quality of their final unit, where 1 means no improvement.</p></div>
-        <div class="fact"><span class="fig">4 of 6</span><p>named ChatGPT among their most valuable tools; 2 named NotebookLM.</p></div>
-      </div>
-
-      <p>In open answers, learners described three lessons: prompt quality changes the result, AI does better with vetted sources than with its own research, and a plan needs repeated human revision before it fits. One respondent said the course mostly consolidated existing skills, and another found AI very unreliable.</p>
-
-      <div class="two">
-        <div>
-          <h4>Course feedback: what worked</h4>
-          <ul class="plain">
-            <li>A clear structure, with the final paper built step by step in the sessions</li>
-            <li>A paper learners can use in their own teaching</li>
-            <li>The mix of in-person sessions and self-study</li>
-            <li>Exchange with peers and the instructor</li>
-          </ul>
         </div>
-        <div>
-          <h4>Course feedback: what to fix</h4>
-          <ul class="plain">
-            <li>Some sessions packed in too much for the time</li>
-            <li>OneNote felt clumsy to some (a Word document was allowed)</li>
-            <li>The expected length of each chapter was unclear</li>
-            <li>One self-directed learner got little extra from attending</li>
-            <li>Learners wanted to choose their own topic</li>
+        <figure style="margin:0">
+          <ul class="rubric">
+            <li><span>Competency-oriented teaching</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span class="pts">3 pts</span></li>
+            <li><span>Competency analysis</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span class="pts">3 pts</span></li>
+            <li><span>Content analysis</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span class="pts">3 pts</span></li>
+            <li><span>Learner analysis</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span class="pts">3 pts</span></li>
+            <li><span>Objectives</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span class="pts">3 pts</span></li>
+            <li><span>Assessment</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span class="pts">3 pts</span></li>
+            <li class="x2"><span>Task set (counts double)</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="pts">6 pts</span></li>
+            <li><span>Unit plan</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span class="pts">3 pts</span></li>
+            <li><span>Evaluation and reflection</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span class="pts">3 pts</span></li>
+            <li><span>Writing, citation and AI disclosure</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span><span class="pts">3 pts</span></li>
           </ul>
-        </div>
-      </div>
-      <p class="note">Course feedback: 7 anonymous responses, summarized and translated.</p>
+          <div class="total"><span><span class="ms" aria-hidden="true">grading</span>33 points in total</span><span><span class="ms" aria-hidden="true">check_circle</span>Pass mark 20 (60%)</span></div>
+        </figure>
+        <p class="activities">Learners could hand in their content analysis, objectives and task-set overview early for feedback. The final session is a mandatory “highlights” presentation, where peers give feedback in three moves: feed up (what is the goal?), feed back (where are you now?) and feed forward (what comes next?).</p>
+      </article>
+
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="s-next">
-    <h2 id="s-next">What I’d change next time</h2>
-    <div class="body">
-      <ul class="list">
-        <li><b>Measure so the data can answer the question.</b> Use identical wording and scale direction in both surveys, and a better way to match responses. Self-made codes linked only 1 of the 6 end-of-semester responses to a week-1 response.</li>
-        <li><b>Move more input into the workbook or short videos,</b> so workshop time goes to practice and feedback.</li>
-        <li><b>State the expected length of each written chapter.</b></li>
-        <li><b>Test open topic choice.</b> Let learners pick any curriculum competency while keeping the same rubric.</li>
-      </ul>
+  <section class="block" id="results" aria-labelledby="s-results">
+    <div class="head">
+      <p class="overline">Results</p>
+      <h2 id="s-results">What changed</h2>
+      <p class="intro">All learners passed the final unit plan, scored against the 33-point rubric. I also collected three anonymous measures: the week-1 survey (11 responses), an end-of-semester survey in the final session (6 responses) and a course feedback form (7 responses). Together they cover Kirkpatrick Level 1 (reaction) and Level 2 (learning), assessed through the rubric and self-reported in the surveys.</p>
+    </div>
+
+    <figure class="viz" id="viz" aria-labelledby="viz-title">
+      <figcaption>
+        <p class="viz-title" id="viz-title">Self-rated confidence with AI in lesson planning</p>
+        <p class="viz-sub">Group averages, start and end of semester</p>
+        <ul class="legend">
+          <li><i class="k-pre"></i>Start of semester (n = 11)</li>
+          <li><i class="k-post"></i>End of semester (n = 6)</li>
+        </ul>
+      </figcaption>
+      <div class="plot">
+        <div class="row">
+          <p class="row-label">Steering AI with prompts to get useful planning results</p>
+          <div class="track">
+            <span class="link" style="--a: 3.36; --b: 4.17"></span>
+            <button type="button" class="dot pre" style="--v: 3.36" data-value="3.36" data-series="Start of semester · n = 11" aria-label="Steering AI with prompts, start of semester: 3.36 (n = 11)"><span class="val" aria-hidden="true">3.36</span></button>
+            <button type="button" class="dot post" style="--v: 4.17" data-value="4.17" data-series="End of semester · n = 6" aria-label="Steering AI with prompts, end of semester: 4.17 (n = 6)"><span class="val" aria-hidden="true">4.17</span></button>
+          </div>
+        </div>
+        <div class="row">
+          <p class="row-label">Checking AI output against the curriculum</p>
+          <div class="track">
+            <span class="link" style="--a: 3.00; --b: 3.83"></span>
+            <button type="button" class="dot pre" style="--v: 3.00" data-value="3.00" data-series="Start of semester · n = 11" aria-label="Checking AI output against the curriculum, start of semester: 3.00 (n = 11)"><span class="val" aria-hidden="true">3.00</span></button>
+            <button type="button" class="dot post" style="--v: 3.83" data-value="3.83" data-series="End of semester · n = 6" aria-label="Checking AI output against the curriculum, end of semester: 3.83 (n = 6)"><span class="val" aria-hidden="true">3.83</span></button>
+          </div>
+        </div>
+        <div class="row">
+          <p class="row-label">Judging whether an AI lesson plan meets quality criteria</p>
+          <div class="track">
+            <span class="link" style="--a: 2.91; --b: 3.67"></span>
+            <button type="button" class="dot pre" style="--v: 2.91" data-value="2.91" data-series="Start of semester · n = 11" aria-label="Judging an AI lesson plan, start of semester: 2.91 (n = 11)"><span class="val" aria-hidden="true">2.91</span></button>
+            <button type="button" class="dot post" style="--v: 3.67" data-value="3.67" data-series="End of semester · n = 6" aria-label="Judging an AI lesson plan, end of semester: 3.67 (n = 6)"><span class="val" aria-hidden="true">3.67</span></button>
+          </div>
+        </div>
+        <div>
+          <div class="axis" aria-hidden="true"><span style="--t: 1">1</span><span style="--t: 2">2</span><span style="--t: 3">3</span><span style="--t: 4">4</span><span style="--t: 5">5</span></div>
+          <p class="note axis-note">1 = very unsure or strongly disagree · 5 = very sure or strongly agree</p>
+        </div>
+      </div>
+      <div class="viz-tip" id="viz-tip" aria-hidden="true" hidden></div>
+      <details class="tv">
+        <summary>Show the numbers as a table</summary>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Self-rating (1–5)</th><th scope="col">Start (n = 11)</th><th scope="col">End (n = 6)</th><th scope="col">Change</th></tr></thead>
+            <tbody>
+              <tr><td>Steering AI with prompts</td><td>3.36</td><td>4.17</td><td>+0.80</td></tr>
+              <tr><td>Checking AI output against the curriculum</td><td>3.00</td><td>3.83</td><td>+0.83</td></tr>
+              <tr><td>Judging an AI lesson plan</td><td>2.91</td><td>3.67</td><td>+0.76</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Changes are computed from unrounded averages.</p>
+      </details>
+    </figure>
+    <p class="caveat"><span class="ms" aria-hidden="true">insights</span><span>These are self-ratings, not test scores. The two groups are not matched person by person, the end survey reached about half the group, and the item wording changed slightly between surveys. Read the shift as a direction, not a measured effect.</span></p>
+
+    <div class="facts">
+      <div class="fact"><span class="fig">3.2 of 5</span><p>Average rating for how much AI improved the quality of their final unit, where 1 means no improvement.</p></div>
+      <div class="fact"><span class="fig">4 of 6</span><p>Named ChatGPT among their most valuable tools; 2 named NotebookLM.</p></div>
+      <div class="fact quote"><span class="ms" aria-hidden="true">format_quote</span><p>In open answers, learners said prompt quality changes the result, AI does better with vetted sources than with its own research, and a plan needs repeated human revision before it fits. One respondent said the course mostly consolidated existing skills, and another found AI very unreliable.</p></div>
+    </div>
+
+    <div class="two">
+      <div class="card list-card">
+        <h3><span class="icon-badge"><span class="ms" aria-hidden="true">thumb_up</span></span>Course feedback: what worked</h3>
+        <ul>
+          <li><span class="ms" aria-hidden="true">check_circle</span>A clear structure, with the final paper built step by step in the sessions</li>
+          <li><span class="ms" aria-hidden="true">check_circle</span>A paper learners can use in their own teaching</li>
+          <li><span class="ms" aria-hidden="true">check_circle</span>The mix of in-person sessions and self-study</li>
+          <li><span class="ms" aria-hidden="true">check_circle</span>Exchange with peers and the instructor</li>
+        </ul>
+      </div>
+      <div class="card list-card">
+        <h3><span class="icon-badge"><span class="ms" aria-hidden="true">build</span></span>Course feedback: what to fix</h3>
+        <ul>
+          <li><span class="ms" aria-hidden="true">arrow_forward</span>Some sessions packed in too much for the time</li>
+          <li><span class="ms" aria-hidden="true">arrow_forward</span>OneNote felt clumsy to some (a Word document was allowed)</li>
+          <li><span class="ms" aria-hidden="true">arrow_forward</span>The expected length of each chapter was unclear</li>
+          <li><span class="ms" aria-hidden="true">arrow_forward</span>One self-directed learner got little extra from attending</li>
+          <li><span class="ms" aria-hidden="true">arrow_forward</span>Learners wanted to choose their own topic</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note" style="margin-top:12px">Course feedback: 7 anonymous responses, summarized and translated.</p>
+  </section>
+
+  <section class="block" id="reflection" aria-labelledby="s-reflection">
+    <div class="head">
+      <p class="overline">Reflection</p>
+      <h2 id="s-reflection">Looking back</h2>
+    </div>
+    <div class="two" style="margin-top:0">
+      <div class="card list-card">
+        <h3><span class="icon-badge"><span class="ms" aria-hidden="true">tune</span></span>What I’d change next time</h3>
+        <ul>
+          <li><span class="ms" aria-hidden="true">arrow_forward</span><span><b>Measure so the data can answer the question.</b> Use identical wording and scale direction in both surveys, and a better way to match responses. Self-made codes linked only 1 of the 6 end-of-semester responses to a week-1 response.</span></li>
+          <li><span class="ms" aria-hidden="true">arrow_forward</span><span><b>Move more input into the workbook or short videos,</b> so workshop time goes to practice and feedback.</span></li>
+          <li><span class="ms" aria-hidden="true">arrow_forward</span><span><b>State the expected length of each written chapter.</b></span></li>
+          <li><span class="ms" aria-hidden="true">arrow_forward</span><span><b>Test open topic choice.</b> Let learners pick any curriculum competency while keeping the same rubric.</span></li>
+        </ul>
+      </div>
+      <div class="card list-card">
+        <h3><span class="icon-badge"><span class="ms" aria-hidden="true">verified</span></span>What this shows</h3>
+        <ul>
+          <li><span class="ms" aria-hidden="true">check_circle</span>Backward design from a competency to objectives, assessment and a practice sequence</li>
+          <li><span class="ms" aria-hidden="true">check_circle</span>An analytic rubric aligned with every step of the learning process</li>
+          <li><span class="ms" aria-hidden="true">check_circle</span>Blended design that pairs a self-paced workbook with facilitated workshops and minute-by-minute facilitator notes</li>
+          <li><span class="ms" aria-hidden="true">check_circle</span>AI enablement for professionals, from a needs survey and hands-on practice with source-grounded tools to a custom assistant and evaluation</li>
+          <li><span class="ms" aria-hidden="true">check_circle</span>Evaluation at Kirkpatrick Levels 1 and 2, reported with its limits</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="s-shows">
-    <h2 id="s-shows">What this shows</h2>
-    <div class="body">
-      <ul class="list">
-        <li>Backward design from a competency to objectives, assessment and a practice sequence</li>
-        <li>An analytic rubric aligned with every step of the learning process</li>
-        <li>Blended design that pairs a self-paced workbook with facilitated workshops and minute-by-minute facilitator notes</li>
-        <li>AI enablement for professionals, from a needs survey and hands-on practice with source-grounded tools to a custom assistant and evaluation</li>
-        <li>Evaluation at Kirkpatrick Levels 1 and 2, reported with its limits</li>
-      </ul>
+  <section class="cta" aria-labelledby="s-cta">
+    <div>
+      <h2 id="s-cta">Let’s connect</h2>
+      <p>Questions about this case study, or about learning design for your team? Reach me on LinkedIn.</p>
     </div>
+    <a class="btn filled" href="https://www.linkedin.com/in/leathommen/" target="_blank" rel="noopener noreferrer"><span class="ms" aria-hidden="true">handshake</span>Connect on LinkedIn</a>
   </section>
 
   <footer>
     <p>Course materials are in German; the terms and examples on this page are my translations. Survey figures are anonymous group results. No student work, names or grades appear on this page.</p>
-    <p>Lea Thommen · 2026 · <a href="https://www.linkedin.com/in/leathommen/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+    <p>© 2026 Lea Thommen</p>
   </footer>
-</div>
+</main>
 
 <script>
   (function () {
     var fig = document.getElementById("viz");
     var tip = document.getElementById("viz-tip");
-    if (!fig || !tip) return;
-    function show(btn) {
-      var row = btn.closest(".row");
-      var value = document.createElement("strong");
-      value.textContent = btn.getAttribute("data-value");
-      var series = document.createElement("span");
-      series.textContent = btn.getAttribute("data-series");
-      var item = document.createElement("span");
-      item.textContent = row ? row.querySelector(".row-label").textContent : "";
-      tip.replaceChildren(value, series, item);
-      tip.hidden = false;
-      var fr = fig.getBoundingClientRect();
-      var br = btn.getBoundingClientRect();
-      var half = tip.offsetWidth / 2;
-      var x = br.left - fr.left + br.width / 2;
-      x = Math.max(half + 8, Math.min(fr.width - half - 8, x));
-      tip.style.left = x + "px";
-      tip.style.top = (br.top - fr.top + 4) + "px";
+    if (fig && tip) {
+      var show = function (btn) {
+        var row = btn.closest(".row");
+        var value = document.createElement("strong");
+        value.textContent = btn.getAttribute("data-value");
+        var series = document.createElement("span");
+        series.textContent = btn.getAttribute("data-series");
+        var item = document.createElement("span");
+        item.textContent = row ? row.querySelector(".row-label").textContent : "";
+        tip.replaceChildren(value, series, item);
+        tip.hidden = false;
+        var fr = fig.getBoundingClientRect();
+        var br = btn.getBoundingClientRect();
+        var half = tip.offsetWidth / 2;
+        var x = br.left - fr.left + br.width / 2;
+        x = Math.max(half + 8, Math.min(fr.width - half - 8, x));
+        tip.style.left = x + "px";
+        tip.style.top = (br.top - fr.top + 4) + "px";
+      };
+      var hide = function () { tip.hidden = true; };
+      fig.querySelectorAll(".dot").forEach(function (btn) {
+        btn.addEventListener("pointerenter", function () { show(btn); });
+        btn.addEventListener("focus", function () { show(btn); });
+        btn.addEventListener("pointerleave", hide);
+        btn.addEventListener("blur", hide);
+      });
     }
-    function hide() { tip.hidden = true; }
-    fig.querySelectorAll(".dot").forEach(function (btn) {
-      btn.addEventListener("pointerenter", function () { show(btn); });
-      btn.addEventListener("focus", function () { show(btn); });
-      btn.addEventListener("pointerleave", hide);
-      btn.addEventListener("blur", hide);
-    });
+
+    // Highlight the tab of the section in view.
+    var tabs = Array.prototype.slice.call(document.querySelectorAll(".tabs a"));
+    if (!("IntersectionObserver" in window) || !tabs.length) return;
+    var visible = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+      var current = null;
+      tabs.forEach(function (a) { var id = a.getAttribute("href").slice(1); if (visible[id] && !current) current = id; });
+      tabs.forEach(function (a) {
+        if (a.getAttribute("href").slice(1) === current) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    tabs.forEach(function (a) { var el = document.getElementById(a.getAttribute("href").slice(1)); if (el) io.observe(el); });
   })();
 </script>
-
 </body>
 </html>
